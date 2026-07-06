@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💪 FitPro - Fitness Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #0f0f23, #1a237e, #000);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            background: transparent;
+            border: none;
+            color: #d1d5db;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-button:hover {
+            background: rgba(59, 130, 246, 0.2);
+            color: white;
+        }
+
+        .nav-button.active {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* HOME TAB */
+        .home-title {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #60a5fa, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .home-subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #d1d5db;
+            margin: 1rem 0 3rem;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+            transform: scale(1.05);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .card-text {
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
+        /* CTA Button */
+        .cta-section {
+            background: linear-gradient(to right, #2563eb, #7c3aed);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section h3 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            color: #f3f4f6;
+        }
+
+        .cta-button {
+            background: white;
+            color: #2563eb;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #f3f4f6;
+            transform: scale(1.05);
+        }
+
+        /* WORKOUTS TAB */
+        .section-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 2rem 0 1rem;
+        }
+
+        .section-subtitle {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .workout-card {
+            background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .workout-card:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .workout-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .workout-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #d1d5db;
+        }
+
+        .workout-button {
+            width: 100%;
+            background: #3b82f6;
+            border: none;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .workout-button:hover {
+            background: #2563eb;
+        }
+
+        /* EXERCISE DETAILS */
+        .exercise-detail {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .exercise-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #93c5fd;
+        }
+
+        .exercise-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            color: #d1d5db;
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+        }
+
+        /* NUTRITION TAB */
+        .nutrition-card {
+            background: linear-gradient(to bottom right, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .nutrition-card:hover {
+            border-color: rgba(34, 197, 94, 0.6);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.2);
+        }
+
+        .nutrition-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .nutrition-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #86efac;
+        }
+
+        .tips-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tip-tag {
+            background: rgba(34, 197, 94, 0.2);
+            color: #86efac;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+        }
+
+        /* PROGRESS TAB */
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+        }
+
+        .input-field::placeholder {
+            color: #9ca3af;
+        }
+
+        .add-button {
+            background: linear-gradient(to right, #a855f7, #ec4899);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .add-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3);
+        }
+
+        /* STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #a78bfa;
+            font-size: 0.875rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* PROGRESS HISTORY */
+        .progress-list {
+            max-height: 400px;
+            overflow-y: auto;
+            space-y: 1rem;
+        }
+
+        .progress-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .progress-item:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .progress-date {
+            color: #818cf8;
+            font-weight: bold;
+        }
+
+        .progress-weight {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #c4b5fd;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: all 0.3s;
+            margin-left: 1rem;
+        }
+
+        .delete-btn:hover {
+            color: #dc2626;
+            transform: scale(1.2);
+        }
+
+        /* TIPS SECTION */
+        .tips-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .tips-box {
+            background: linear-gradient(to bottom right, rgba(234, 179, 8, 0.1), rgba(251, 146, 60, 0.1));
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: 1.5rem;
+            padding: 2rem;
+        }
+
+        .tips-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .tips-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .tip-item {
+            display: flex;
+            gap: 0.75rem;
+            color: #d1d5db;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            margin-top: 4rem;
+            padding: 2rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .home-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1rem;
+            }
+
+            .cta-section h3 {
+                font-size: 1.5rem;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .add-button {
+                width: 100%;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            background: rgba(107, 114, 128, 0.2);
+            border: 1px solid rgba(107, 114, 128, 0.3);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #60a5fa;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            color: #93c5fd;
+            transform: translateX(-5px);
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .schedule-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(251, 146, 60, 0.2);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .schedule-time {
+            color: #fb923c;
+            font-weight: bold;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .schedule-meal {
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .schedule-food {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-brand">💪 FitPro</div>
+            <div class="nav-menu">
+                <button class="nav-button active" onclick="showTab('home')">Home</button>
+                <button class="nav-button" onclick="showTab('workouts')">Workouts</button>
+                <button class="nav-button" onclick="showTab('nutrition')">Nutrition</button>
+                <button class="nav-button" onclick="showTab('progress')">Progress</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- HOME TAB -->
+        <div id="home" class="tab-content active">
+            <h2 class="home-title">आपका Fitness Journey शुरु करें 🚀</h2>
+            <p class="home-subtitle">
+                स्वस्थ जीवन के लिए सही workout, proper nutrition, और dedication की जरूरत है।
+            </p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">❤️</div>
+                    <div class="card-title">Cardio</div>
+                    <div class="card-text">दिल को स्वस्थ रखें और stamina बढ़ाएं</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💪</div>
+                    <div class="card-title">Strength</div>
+                    <div class="card-text">मांसपेशी बढ़ाएं और ताकत लगाएं</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <div class="card-title">Progress</div>
+                    <div class="card-text">अपनी प्रगति ट्रैक करें और motivated रहें</div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h3>आज ही शुरु करें! 🎯</h3>
+                <p>अपने फिटनेस लक्ष्य को पूरा करने के लिए सही workout plan चुनें।</p>
+                <button class="cta-button" onclick="showTab('workouts')">Workouts देखें →</button>
+            </div>
+        </div>
+
+        <!-- WORKOUTS TAB -->
+        <div id="workouts" class="tab-content">
+            <h2 class="section-title">💪 Workout Plans</h2>
+            <p class="section-subtitle">अपने लिए सही workout चुनें और शुरु करें</p>
+
+            <div id="workoutList" class="grid-2"></div>
+            <div id="workoutDetail" style="display:none;"></div>
+        </div>
+
+        <!-- NUTRITION TAB -->
+        <div id="nutrition" class="tab-content">
+            <h2 class="section-title">🥗 Nutrition Plans</h2>
+            <p class="section-subtitle">सही nutrition बिना फायदेमंद नहीं है - proper diet लें</p>
+
+            <div class="grid-2">
+                <div class="nutrition-card">
+                    <div class="nutrition-icon">🍗</div>
+                    <div class="nutrition-title">Protein Intake</div>
+                    <p class="card-text">खाने में प्रोटीन जरूर शामिल करें - 0.8-1g प्रोटीन प्रति lb body weight</p>
+                    <div class="tips-list">
+                        <span class="tip-tag">Chicken</span>
+                        <span class="tip-tag">Fish</span>
+                        <span class="tip-tag">Eggs</span>
+                    </div>
+                </div>
+                <div class="nutrition-card">
+                    <div class="nutrition-icon">💧</div>
+                    <div class="nutrition-title">Hydration (पानी)</div>
+                    <p class="card-text">रोज 3-4 लीटर पानी पिएं - अच्छे परफॉर्मेंस के लिए जरूरी</p>
+                    <div class="tips-list">
+                        <span class="tip-tag">सुबह खाली पेट</span>
+                        <span class="tip-tag">व्यायाम से पहले</span>
+                        <span class="tip-tag">दौरान नियमित</span>
+                    </div>
+                </div>
+                <div class="nutrition-card">
+                    <div class="nutrition-icon">🌾</div>
+                    <div class="nutrition-title">Complex Carbs</div>
+                    <p class="card-text">अच्छी energy के लिए brown rice, oats, और sweet potatoes खाएं</p>
+                    <div class="tips-list">
+                        <span class="tip-tag">Brown Rice</span>
+                        <span class="tip-tag">Oats</span>
+                        <span class="tip-tag">Sweet Potatoes</span>
+                    </div>
+                </div>
+                <div class="nutrition-card">
+                    <div class="nutrition-icon">🥑</div>
+                    <div class="nutrition-title">Healthy Fats</div>
+                    <p class="card-text">Hormonal health के लिए healthy fats बहुत जरूरी हैं</p>
+                    <div class="tips-list">
+                        <span class="tip-tag">Almonds</span>
+                        <span class="tip-tag">Avocados</span>
+                        <span class="tip-tag">Olive Oil</span>
+                    </div>
+                </div>
+                <div class="nutrition-card">
+                    <div class="nutrition-icon">🥕</div>
+                    <div class="nutrition-title">Fruits & Vegetables</div>
+                    <p class="card-text">अलग-अलग रंग के फल और सब्जियां खाएं vitamins के लिए</p>
+                    <div class="tips-list">
+                        <span class="tip-tag">Green Vegetables</span>
+                        <span class="tip-tag">Bananas</span>
+                        <span class="tip-tag">Berries</span>
+                    </div>
+                </div>
+                <div class="nutrition-card">
+                    <div class="nutrition-icon">⏰</div>
+                    <div class="nutrition-title">Meal Timing</div>
+                    <p class="card-text">सही समय पर खाना खाना शरीर के लिए बहुत फायदेमंद है</p>
+                    <div class="tips-list">
+                        <span class="tip-tag">Breakfast: 6-8 AM</span>
+                        <span class="tip-tag">Lunch: 1-2 PM</span>
+                        <span class="tip-tag">Dinner: 7-8 PM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-box" style="margin-top: 2rem;">
+                <div class="tips-title">⏰ Daily Eating Schedule</div>
+                <div class="schedule-grid">
+                    <div class="schedule-item">
+                        <div class="schedule-time">6-7 AM</div>
+                        <div class="schedule-meal">Breakfast</div>
+                        <div class="schedule-food">Eggs, Oats, Milk</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">10 AM</div>
+                        <div class="schedule-meal">Mid-Morning</div>
+                        <div class="schedule-food">Banana, Almonds</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">1-2 PM</div>
+                        <div class="schedule-meal">Lunch</div>
+                        <div class="schedule-food">Rice, Chicken, Veg</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">4-5 PM</div>
+                        <div class="schedule-meal">Snack</div>
+                        <div class="schedule-food">Greek Yogurt, Berries</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">7-8 PM</div>
+                        <div class="schedule-meal">Dinner</div>
+                        <div class="schedule-food">Fish/Chicken, Rice</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROGRESS TAB -->
+        <div id="progress" class="tab-content">
+            <h2 class="section-title">📊 Progress Tracker</h2>
+            <p class="section-subtitle">अपना progress track करें और motivated रहें</p>
+
+            <div class="card" style="margin: 2rem 0;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">⚖️ Weight Tracker</h3>
+                <div class="input-group">
+                    <input
+                        type="number"
+                        id="weightInput"
+                        class="input-field"
+                        placeholder="अपना weight डालें (kg)"
+                        step="0.1"
+                    />
+                    <button class="add-button" onclick="addWeight()">➕ Add Weight</button>
+                </div>
+                <div id="statsContainer" style="display:none;">
+                    <div class="stats-grid" id="statsGrid"></div>
+                </div>
+            </div>
+
+            <div id="progressHistoryContainer" style="display:none;">
+                <div class="card">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">📈 Your Progress History</h3>
+                    <div class="progress-list" id="progressList"></div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <div class="tips-box" style="background: linear-gradient(to bottom right, rgba(234, 179, 8, 0.1), rgba(251, 146, 60, 0.1));">
+                    <div class="tips-title">💡 Daily Tips</div>
+                    <div class="tips-list">
+                        <div class="tip-item"><span>✅</span> <span>हर रोज़ कम से कम 30 मिनट व्यायाम करें</span></div>
+                        <div class="tip-item"><span>✅</span> <span>सुबह 6-7 बजे उठने की कोशिश करें</span></div>
+                        <div class="tip-item"><span>✅</span> <span>खाना धीरे-धीरे चबाकर खाएं</span></div>
+                        <div class="tip-item"><span>✅</span> <span>रात को 8 घंटे की नींद लें</span></div>
+                        <div class="tip-item"><span>✅</span> <span>हर दिन 3-4 लीटर पानी पिएं</span></div>
+                    </div>
+                </div>
+                <div class="tips-box" style="background: linear-gradient(to bottom right, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));">
+                    <div class="tips-title">🏆 Motivation Tips</div>
+                    <div class="tips-list">
+                        <div class="tip-item"><span>🎯</span> <span>एक realistic goal सेट करें</span></div>
+                        <div class="tip-item"><span>🎯</span> <span>एक workout buddy ढूंढें</span></div>
+                        <div class="tip-item"><span>🎯</span> <span>Progress को celebrate करें</span></div>
+                        <div class="tip-item"><span>🎯</span> <span>गलतियों से सीखें, हार न मानें</span></div>
+                        <div class="tip-item"><span>🎯</span> <span>हर हफ्ते अपने आप को reward दें</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>💪 Made with ❤️ for Your Fitness Journey | © 2024 FitPro</p>
+        <p>Remember: Consistency is key to success! 🚀</p>
+    </footer>
+
+    <script>
+        // Workouts Data
+        const workouts = [
+            {
+                id: 1,
+                name: 'Chest & Triceps',
+                duration: '45 mins',
+                difficulty: 'Intermediate',
+                calories: 350,
+                exercises: [
+                    { name: 'Push-ups', sets: 3, reps: 15, rest: '60 sec' },
+                    { name: 'Bench Press', sets: 4, reps: 8, rest: '90 sec' },
+                    { name: 'Tricep Dips', sets: 3, reps: 12, rest: '60 sec' }
+                ]
+            },
+            {
+                id: 2,
+                name: 'Back & Biceps',
+                duration: '50 mins',
+                difficulty: 'Intermediate',
+                calories: 380,
+                exercises: [
+                    { name: 'Pull-ups', sets: 4, reps: 10, rest: '90 sec' },
+                    { name: 'Barbell Rows', sets: 4, reps: 8, rest: '90 sec' },
+                    { name: 'Bicep Curls', sets: 3, reps: 12, rest: '60 sec' }
+                ]
+            },
+            {
+                id: 3,
+                name: 'Legs & Glutes',
+                duration: '55 mins',
+                difficulty: 'Hard',
+                calories: 450,
+                exercises: [
+                    { name: 'Squats', sets: 4, reps: 10, rest: '90 sec' },
+                    { name: 'Deadlifts', sets: 3, reps: 6, rest: '120 sec' },
+                    { name: 'Leg Press', sets: 3, reps: 12, rest: '90 sec' }
+                ]
+            },
+            {
+                id: 4,
+                name: 'Cardio Blast',
+                duration: '30 mins',
+                difficulty: 'Beginner',
+                calories: 300,
+                exercises: [
+                    { name: 'Warm-up Running', duration: '5 mins' },
+                    { name: 'High Intensity Sprints', duration: '15 mins' },
+                    { name: 'Cool-down Walk', duration: '10 mins' }
+                ]
+            }
+        ];
+
+        let progressData = [];
+
+        // Show Tab
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Update nav buttons
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Load workouts when workouts tab is clicked
+            if (tabName === 'workouts') {
+                loadWorkouts();
+            }
+        }
+
+        // Load Workouts
+        function loadWorkouts() {
+            const workoutList = document.getElementById('workoutList');
+            const workoutDetail = document.getElementById('workoutDetail');
+
+            if (workoutDetail.style.display !== 'none') return;
+
+            workoutList.innerHTML = '';
+            workouts.forEach(workout => {
+                const html = `
+                    <div class="workout-card" onclick="showWorkoutDetail(${workout.id})">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">💪</div>
+                        <div class="workout-name">${workout.name}</div>
+                        <div class="workout-info">
+                            <span>⏱️ ${workout.duration}</span>
+                            <span>🔥 ${workout.calories} cal</span>
+                        </div>
+                        <div class="workout-info">
+                            <span>💪 ${workout.difficulty}</span>
+                        </div>
+                        <button class="workout-button">विस्तार देखें →</button>
+                    </div>
+                `;
+                workoutList.innerHTML += html;
+            });
+        }
+
+        // Show Workout Detail
+        function showWorkoutDetail(id) {
+            const workout = workouts.find(w => w.id === id);
+            const workoutList = document.getElementById('workoutList');
+            const workoutDetail = document.getElementById('workoutDetail');
+
+            workoutList.style.display = 'none';
+            workoutDetail.style.display = 'block';
+
+            let exercisesHtml = '';
+            workout.exercises.forEach((ex, i) => {
+                let infoHtml = '';
+                if (ex.sets) {
+                    infoHtml = `
+                        <div class="info-box">
+                            <strong>Sets × Reps:</strong> ${ex.sets} × ${ex.reps}
+                        </div>
+                        <div class="info-box">
+                            <strong>Rest:</strong> ${ex.rest}
+                        </div>
+                    `;
+                } else {
+                    infoHtml = `<div class="info-box"><strong>Duration:</strong> ${ex.duration}</div>`;
+                }
+
+                exercisesHtml += `
+                    <div class="exercise-detail">
+                        <div class="exercise-name">${i + 1}. ${ex.name}</div>
+                        <div class="exercise-info">${infoHtml}</div>
+                    </div>
+                `;
+            });
+
+            workoutDetail.innerHTML = `
+                <button class="back-button" onclick="goBackToWorkouts()">← वापस जाएं</button>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">${workout.name}</h2>
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                    <span style="background: rgba(59, 130, 246, 0.3); padding: 0.5rem 1rem; border-radius: 0.5rem;">⏱️ ${workout.duration}</span>
+                    <span style="background: rgba(168, 85, 247, 0.3); padding: 0.5rem 1rem; border-radius: 0.5rem;">🔥 ${workout.calories} cal</span>
+                    <span style="background: rgba(251, 146, 60, 0.3); padding: 0.5rem 1rem; border-radius: 0.5rem;">💪 ${workout.difficulty}</span>
+                </div>
+                <h3 style="font-size: 1.5rem; margin: 2rem 0 1rem;">🏋️ Exercises:</h3>
+                ${exercisesHtml}
+            `;
+        }
+
+        // Go Back To Workouts
+        function goBackToWorkouts() {
+            document.getElementById('workoutList').style.display = 'grid';
+            document.getElementById('workoutDetail').style.display = 'none';
+        }
+
+        // Add Weight
+        function addWeight() {
+            const input = document.getElementById('weightInput');
+            const weight = parseFloat(input.value);
+
+            if (!weight || weight <= 0) {
+                alert('कृपया सही weight डालें!');
+                return;
+            }
+
+            const today = new Date().toLocaleDateString('en-IN');
+            const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+            progressData.push({ weight, date: today, time });
+            input.value = '';
+
+            updateProgressDisplay();
+        }
+
+        // Update Progress Display
+        function updateProgressDisplay() {
+            if (progressData.length === 0) return;
+
+            // Show stats
+            const statsContainer = document.getElementById('statsContainer');
+            const statsGrid = document.getElementById('statsGrid');
+            statsContainer.style.display = 'block';
+
+            const weights = progressData.map(d => d.weight);
+            const current = weights[weights.length - 1];
+            const initial = weights[0];
+            const change = (current - initial).toFixed(1);
+            const max = Math.max(...weights);
+            const min = Math.min(...weights);
+
+            statsGrid.innerHTML = `
+                <div class="stat-box">
+                    <div class="stat-label">Current</div>
+                    <div class="stat-value">${current} kg</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Starting</div>
+                    <div class="stat-value">${initial} kg</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Progress</div>
+                    <div class="stat-value" style="color: ${change < 0 ? '#86efac' : '#fca5a5'};">${change} kg</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Max</div>
+                    <div class="stat-value">${max} kg</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Min</div>
+                    <div class="stat-value">${min} kg</div>
+                </div>
+            `;
+
+            // Show progress history
+            const historyContainer = document.getElementById('progressHistoryContainer');
+            const progressList = document.getElementById('progressList');
+            historyContainer.style.display = 'block';
+
+            progressList.innerHTML = progressData.slice().reverse().map((data, idx) => `
+                <div class="progress-item">
+                    <div>
+                        <div class="progress-date">${data.date}</div>
+                        <div style="color: #6b7280; font-size: 0.875rem;">${data.time}</div>
+                    </div>
+                    <div class="progress-weight">${data.weight} kg</div>
+                    <button class="delete-btn" onclick="deleteProgress(${progressData.length - 1 - idx})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // Delete Progress
+        function deleteProgress(index) {
+            progressData.splice(index, 1);
+            if (progressData.length === 0) {
+                document.getElementById('statsContainer').style.display = 'none';
+                document.getElementById('progressHistoryContainer').style.display = 'none';
+            } else {
+                updateProgressDisplay();
+            }
+        }
+
+        // Initialize
+        loadWorkouts();
+    </script>
+</body>
+</html>
